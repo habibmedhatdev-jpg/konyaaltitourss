@@ -6,7 +6,7 @@ let allPackages = [];
 let currentLang = localStorage.getItem('konyaalti_lang') || 'en';
 
 // ==========================================
-// 2. TRANSLATIONS (قاموس شامل لكل الصفحات)
+// 2. TRANSLATIONS (DICTIONARY)
 // ==========================================
 const translations = {
     en: {
@@ -520,6 +520,23 @@ function renderSinglePackage(pkg) {
     totalDisplay.innerText = `$${pkg.price}`;
 
     document.getElementById('single-booking-form').onsubmit = (e) => handleBookingSubmit(e, pkg);
+
+    // ✅✅✅ التحقق من الاسم والهاتف (Validation) ✅✅✅
+    // 1. حماية حقل الاسم (حروف ومسافات فقط)
+    const nameInput = document.getElementById('book-name');
+    if(nameInput) {
+        nameInput.addEventListener('input', function() {
+            this.value = this.value.replace(/[^a-zA-Z\s\u0600-\u06FF]/g, ''); 
+        });
+    }
+
+    // 2. حماية حقل الهاتف (أرقام وعلامة + فقط)
+    const phoneInput = document.getElementById('book-phone');
+    if(phoneInput) {
+        phoneInput.addEventListener('input', function() {
+            this.value = this.value.replace(/[^0-9+]/g, '');
+        });
+    }
 }
 
 async function handleBookingSubmit(e, pkg) {
