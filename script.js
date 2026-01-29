@@ -2,10 +2,11 @@
 // 1. GLOBAL VARIABLES & CONFIG
 // ==========================================
 let allPackages = [];
+// 🔥 قراءة اللغة المحفوظة أو استخدام الإنجليزية كافتراضي
 let currentLang = localStorage.getItem('konyaalti_lang') || 'en';
 
 // ==========================================
-// 2. TRANSLATIONS (DICTIONARY)
+// 2. TRANSLATIONS (قاموس شامل لكل الصفحات)
 // ==========================================
 const translations = {
     en: {
@@ -20,7 +21,7 @@ const translations = {
         btn_explore: "Explore Packages", 
         pkg_title: "Popular Destinations",
         
-        // --- Home: Welcome Section (ADDED) ---
+        // --- Home: Welcome Section ---
         home_welcome_title: "Welcome to Antalya",
         home_welcome_sub: "Discover the pearl of the Mediterranean. Premium tours & unforgettable memories.",
         home_card_history: "History & Culture",
@@ -90,7 +91,9 @@ const translations = {
         footer_about: "Travel with confidence. Premium experiences tailored for you.", 
         footer_quick_links: "Quick Links",
         footer_contact: "Contact",
-        btn_details: "View Details",
+        
+        // 🔥 زرار التفاصيل والحجز (إنجليزي)
+        btn_details: "Details & Booking",
         btn_book: "Confirm Booking",
         
         // --- Package Details ---
@@ -113,20 +116,17 @@ const translations = {
         btn_explore: "Turları Keşfet", 
         pkg_title: "Popüler Destinasyonlar",
 
-        // Home: Welcome (Turkish)
         home_welcome_title: "Antalya'ya Hoşgeldiniz",
         home_welcome_sub: "Akdeniz'in incisini keşfedin. Premium turlar ve unutulmaz anılar.",
         home_card_history: "Tarih ve Kültür",
         home_card_beaches: "Turkuaz Plajlar",
         home_card_flavors: "Otantik Lezzetler",
 
-        // Packages Page
         pkg_exclusive_title: "Özel Paketlerimiz",
         pkg_exclusive_sub: "Antalya'daki bir sonraki maceranızı seçin",
         search_placeholder: "Destinasyon ara...",
         btn_view_all: "Tüm Paketleri Gör",
 
-        // About Updates
         about_header_title: "Hakkımızda",
         about_header_sub: "Antalya'daki yeni güvenilir ortağınız.",
         story_title: "Hikayemiz",
@@ -178,7 +178,9 @@ const translations = {
         footer_about: "Güvenle seyahat edin. Size özel premium deneyimler.", 
         footer_quick_links: "Hızlı Bağlantılar",
         footer_contact: "İletişim",
-        btn_details: "Detaylar",
+        
+        // 🔥 زرار التفاصيل والحجز (تركي)
+        btn_details: "İncele ve Rezervasyon",
         btn_book: "Rezervasyonu Onayla",
 
         dt_desc_title: "Açıklama",
@@ -200,20 +202,17 @@ const translations = {
         btn_explore: "تصفح الرحلات", 
         pkg_title: "الوجهات الشهيرة",
 
-        // Home: Welcome (Arabic)
         home_welcome_title: "مرحباً بكم في أنطاليا",
         home_welcome_sub: "اكتشف لؤلؤة البحر الأبيض المتوسط. رحلات فاخرة وذكريات لا تُنسى.",
         home_card_history: "تاريخ وثقافة",
         home_card_beaches: "شواطئ فيروزية",
         home_card_flavors: "نكهات أصيلة",
 
-        // Packages Page
         pkg_exclusive_title: "باقاتنا الحصرية",
         pkg_exclusive_sub: "اختر مغامرتك القادمة في أنطاليا",
         search_placeholder: "ابحث عن وجهة...",
         btn_view_all: "عرض كل الباقات",
 
-        // About Updates
         about_header_title: "من نحن",
         about_header_sub: "شريكك الجديد والموثوق في أنطاليا.",
         story_title: "قصتنا",
@@ -265,7 +264,9 @@ const translations = {
         footer_about: "سافر بثقة. تجارب فاخرة مصممة خصيصاً لك.", 
         footer_quick_links: "روابط سريعة",
         footer_contact: "اتصل بنا",
-        btn_details: "التفاصيل",
+        
+        // 🔥 زرار التفاصيل والحجز (عربي)
+        btn_details: "التفاصيل والحجز",
         btn_book: "تأكيد الحجز",
 
         dt_desc_title: "الوصف",
@@ -287,20 +288,17 @@ const translations = {
         btn_explore: "Смотреть туры", 
         pkg_title: "Популярные направления",
 
-        // Home: Welcome (Russian)
         home_welcome_title: "Добро пожаловать в Анталию",
         home_welcome_sub: "Откройте жемчужину Средиземноморья. Премиум туры и незабываемые моменты.",
         home_card_history: "История и Культура",
         home_card_beaches: "Бирюзовые пляжи",
         home_card_flavors: "Аутентичные вкусы",
 
-        // Packages Page
         pkg_exclusive_title: "Наши эксклюзивные туры",
         pkg_exclusive_sub: "Выберите ваше следующее приключение",
         search_placeholder: "Поиск туров...",
         btn_view_all: "Посмотреть все туры",
 
-        // About Updates
         about_header_title: "О нас",
         about_header_sub: "Ваш новый надежный партнер в Турции.",
         story_title: "Наша история",
@@ -352,7 +350,9 @@ const translations = {
         footer_about: "Путешествуйте с уверенностью.", 
         footer_quick_links: "Быстрые ссылки",
         footer_contact: "Контакты",
-        btn_details: "Подробнее",
+        
+        // 🔥 زرار التفاصيل والحجز (روسي)
+        btn_details: "Подробнее и бронь",
         btn_book: "Подтвердить",
 
         dt_desc_title: "Описание",
@@ -367,19 +367,25 @@ const translations = {
 };
 
 // ==========================================
-// 3. MAIN INITIALIZATION & ROUTER
+// 3. MAIN INITIALIZATION & ROUTER (VISITOR ONLY)
 // ==========================================
 document.addEventListener('DOMContentLoaded', () => {
+    // 1. تطبيق اللغة فوراً
     applyLanguage(currentLang);
     const langSelect = document.getElementById('lang-select');
     if (langSelect) langSelect.value = currentLang;
 
+    // 2. الراوتر الذكي (Smart Router)
+    // أ) هل نحن في صفحة التفاصيل؟
     if (document.getElementById('details-wrapper')) {
         initPackageDetailsPage();
-    } else if (document.getElementById('packages-container')) {
+    } 
+    // ب) هل نحن في صفحة تعرض باقات (Home أو Packages)؟
+    else if (document.getElementById('packages-container')) {
         waitForFirebase(() => loadPackages());
     }
 
+    // 3. تفعيل تأثيرات النافبار
     initNavbarScroll();
 });
 
@@ -573,7 +579,8 @@ function renderPackagesGrid(filterText = "") {
     }
 
     filtered.forEach((pkg, index) => {
-        const btnText = translations[currentLang] ? translations[currentLang].btn_details : "View Details";
+        // 🔥 استخدام الترجمة الصحيحة للزر
+        const btnText = translations[currentLang] ? translations[currentLang].btn_details : "Details & Booking";
         const div = document.createElement('div');
         div.className = 'package-card';
         div.setAttribute('data-aos', 'fade-up');
@@ -595,6 +602,7 @@ function renderPackagesGrid(filterText = "") {
     });
 }
 
+// 🔥 دالة البحث تعمل الآن
 window.filterPackages = () => renderPackagesGrid(document.getElementById('search-bar').value);
 
 function initNavbarScroll() {
