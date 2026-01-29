@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Konyaaltitours | Admin Access</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+      import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyCVVMxamKD54P1tiUUHduqQPNVvaWM9kjM",
+        authDomain: "my-web-app-b0ef5.firebaseapp.com",
+        projectId: "my-web-app-b0ef5",
+        storageBucket: "my-web-app-b0ef5.firebasestorage.app",
+        messagingSenderId: "684795706290",
+        appId: "1:684795706290:web:871525961c084436adc2ab"
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+
+      // 1. مراقب الدخول: تحويل مباشر لو الأدمن مسجل
+      onAuthStateChanged(auth, (user) => {
+        if (user && user.email === 'admin@konyaaltitours.com') {
+            window.location.href = 'admin-dashboard.html';
+        }
+      });
+
+      // 2. دالة التنبيهات الاحترافية (Toast)
+      window.showToast = function(msg, type = 'error') {
+        const container = document.getElementById('toast-container');
+        if (!container) return alert(msg); // Fallback
+        
+        const toast = document.createElement('div');
+        toast.className = `toast ${type}`;
+        
+        let icon = type === 'success' ? '<i class="fas fa-check-circle"></i>' : '<i class="fas fa-exclamation-circle"></i>';
+        
+        toast.innerHTML = `${icon} <span>${msg}</span>`;
+        container.appendChild(toast);
+        
+        // إخفاء التلقائي بعد 3 ثواني
+        setTimeout(() => {
+            toast.style.animation = 'slideOut 0.3s ease-in forwards';
+            setTimeout(() => toast.remove(), 300);
+        }, 3000);
+      }
+
+      // 3. التعامل مع زر الدخول
+      const loginForm = document.getElementById('secret-login-form');
+      if(loginForm) {
+          loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('secret-email').value;
+            const pass = document.getElementById('secret-pass').value;
+            const btn = loginForm.querySelector('button');
+            
+            // تغيير حالة الزر
+            const originalText = btn.innerText;
+            btn.innerText = "Checking...";
+            btn.disabled = true;
+
+            try {
+                await signInWithEmailAndPassword(auth, email, pass);
+                // التوجيه لصفحة الأدمن
+                window.location.href = 'admin-dashboard.html'; 
+            } catch (error) {
+                // استخدام التنبيه الجديد
+                window.showToast("Access Denied: " + error.message, 'error');
+                btn.innerText = originalText;
+                btn.disabled = false;
+            }
+          });
+      }
+    </script>
+
+    <style>
+        body {
+            background-color: #f0f2f5;
+            display: flex; align-items: center; justify-content: center;
+            height: 100vh; margin: 0; font-family: 'Poppins', sans-serif;
+        }
+        .login-card {
+            background: white; padding: 40px; border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1); width: 100%; max-width: 400px;
+            text-align: center;
+        }
+        .login-card h2 { color: var(--primary); margin-bottom: 20px; }
+        .login-card input {
+            width: 100%; padding: 12px; margin-bottom: 15px;
+            border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box;
+        }
+        .login-card button { width: 100%; margin-top: 10px; }
+        .home-link { display: block; margin-top: 20px; font-size: 0.9rem; color: #666; text-decoration: none; transition:0.3s;}
+        .home-link:hover { color: var(--primary); }
+    </style>
+</head>
+<body>
+
+    <div id="toast-container"></div>
+
+    <div class="login-card">
+        <i class="fa-solid fa-user-shield fa-3x" style="color: var(--primary); margin-bottom: 20px;"></i>
+        <h2>Admin Access</h2>
+        <form id="secret-login-form">
+            <input type="email" id="secret-email" placeholder="Admin Email" required>
+            <input type="password" id="secret-pass" placeholder="Password" required>
+            <button type="submit" class="btn-primary">Secure Login</button>
+        </form>
+        <a href="index.html" class="home-link">← Back to Website</a>
+    </div>
+
+</body>
+</html>

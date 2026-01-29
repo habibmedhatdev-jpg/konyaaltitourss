@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | Konyaaltitours</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script type="module" src="admin.js"></script>
+</head>
+<body style="background:#f4f7f6;">
+
+    <div id="loading-overlay" class="loading-overlay" style="display: none;">
+        <div class="spinner"></div>
+    </div>
+
+    <div id="toast-container"></div>
+
+    <div class="admin-layout" style="display: flex;">
+        <div class="admin-sidebar" id="admin-sidebar">
+            <div class="admin-brand">Konyaaltitours</div>
+            <ul class="admin-nav">
+                <li class="active" onclick="switchAdminTab('dashboard')"><i class="fas fa-chart-line"></i> Dashboard</li>
+                <li onclick="switchAdminTab('packages')"><i class="fas fa-box-open"></i> Packages</li>
+                <li onclick="switchAdminTab('bookings')"><i class="fas fa-calendar-check"></i> Bookings</li>
+                <li class="logout-item" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</li>
+            </ul>
+        </div>
+        
+        <div class="admin-main">
+            <div class="admin-header-bar">
+                <div class="hamburger" onclick="document.getElementById('admin-sidebar').classList.toggle('active')" style="color:#333; display:block;">
+                    <i class="fas fa-bars"></i>
+                </div>
+                <h2>Dashboard Overview</h2>
+                <div class="admin-user-info">
+                    <span>Admin</span> <i class="fas fa-user-circle fa-lg"></i>
+                </div>
+            </div>
+
+            <div id="tab-dashboard" class="admin-tab-content">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="icon-box blue"><i class="fas fa-box"></i></div>
+                        <div class="stat-info"><span id="stat-pkg-count">0</span><p>Total Packages</p></div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="icon-box green"><i class="fas fa-check-circle"></i></div>
+                        <div class="stat-info"><span id="stat-confirmed-count">0</span><p>Confirmed</p></div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="icon-box orange"><i class="fas fa-clock"></i></div>
+                        <div class="stat-info"><span id="stat-pending-count">0</span><p>Pending</p></div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="tab-packages" class="admin-tab-content" style="display: none;">
+                <div class="table-actions">
+                    <input type="text" id="search-pkg-admin" placeholder="Search..." onkeyup="searchAdminPackages()">
+                    <button class="btn-primary" onclick="openModal('add-package-modal')"><i class="fas fa-plus"></i> Add Package</button>
+                </div>
+                <div class="table-container">
+                    <table class="admin-table">
+                        <thead><tr><th>Image</th><th>Name</th><th>Price</th><th>Actions</th></tr></thead>
+                        <tbody id="admin-pkg-list"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="tab-bookings" class="admin-tab-content" style="display: none;">
+                <div class="table-actions">
+                    <input type="text" id="search-booking-admin" placeholder="Search..." onkeyup="searchAdminBookings()">
+                    <select id="filter-status" onchange="filterBookingsStatus()">
+                        <option value="all">All</option>
+                        <option value="Pending">Pending</option>
+                        <option value="Confirmed">Confirmed</option>
+                        <option value="Cancelled">Cancelled</option>
+                    </select>
+                </div>
+                <div class="table-container">
+                    <table class="admin-table">
+                        <thead><tr><th>Name</th><th>Trip</th><th>Date</th><th>Total</th><th>Status</th><th>Actions</th></tr></thead>
+                        <tbody id="admin-booking-list"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="add-package-modal" class="modal wide-modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('add-package-modal')">&times;</span>
+            <div class="modal-body-scroll">
+                <h2>Add New Package</h2>
+                <form id="add-package-form">
+                    <div class="file-upload-wrapper">
+                        <label for="pkg-image-file" class="custom-file-upload"><i class="fas fa-cloud-upload-alt"></i> Upload Image</label>
+                        <input type="file" id="pkg-image-file" accept="image/*">
+                    </div>
+                    <label>Name</label><input type="text" id="pkg-name" required>
+                    <div style="display:flex; gap:20px;">
+                        <div style="flex:1;"><label>Price ($)</label><input type="number" id="pkg-price" required></div>
+                        <div style="flex:1;"><label>Duration</label><input type="text" id="pkg-duration" placeholder="e.g. 3 Days" required></div>
+                    </div>
+                    <label>Description</label><textarea id="pkg-desc" rows="3" required></textarea>
+                    <label>Dates (comma separated)</label><input type="text" id="pkg-dates" placeholder="2025-06-01, 2025-07-15" required>
+                    <label>Plan</label><textarea id="pkg-plan" rows="5" placeholder="Day 1:..." required></textarea>
+                    <button type="submit" class="btn-primary" style="width:100%;">Save</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="edit-package-modal" class="modal wide-modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('edit-package-modal')">&times;</span>
+            <div class="modal-body-scroll">
+                <h2>Edit Package</h2>
+                <form id="edit-package-form">
+                    <input type="hidden" id="edit-pkg-id">
+                    <input type="hidden" id="edit-pkg-old-image">
+                    <div class="file-upload-wrapper">
+                        <label for="edit-pkg-file" class="custom-file-upload"><i class="fas fa-cloud-upload-alt"></i> Change Image</label>
+                        <input type="file" id="edit-pkg-file" accept="image/*">
+                    </div>
+                    <label>Name</label><input type="text" id="edit-pkg-name" required>
+                    <div style="display:flex; gap:20px;">
+                        <div style="flex:1;"><label>Price</label><input type="number" id="edit-pkg-price" required></div>
+                        <div style="flex:1;"><label>Duration</label><input type="text" id="edit-pkg-duration" required></div>
+                    </div>
+                    <label>Description</label><textarea id="edit-pkg-desc" rows="3" required></textarea>
+                    <label>Dates</label><input type="text" id="edit-pkg-dates" required>
+                    <label>Plan</label><textarea id="edit-pkg-plan" rows="5" required></textarea>
+                    <button type="submit" class="btn-primary" style="width:100%;">Update</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

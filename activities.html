@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Konyaaltitours | Activities</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+      import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+      const firebaseConfig = {
+        apiKey: "AIzaSyCVVMxamKD54P1tiUUHduqQPNVvaWM9kjM",
+        authDomain: "my-web-app-b0ef5.firebaseapp.com",
+        projectId: "my-web-app-b0ef5",
+        storageBucket: "my-web-app-b0ef5.firebasestorage.app",
+        messagingSenderId: "684795706290",
+        appId: "1:684795706290:web:871525961c084436adc2ab"
+      };
+      const app = initializeApp(firebaseConfig);
+      window.auth = getAuth(app);
+      window.onAuthStateChanged = onAuthStateChanged;
+      window.signOut = signOut;
+    </script>
+
+    <style>
+        .page-header {
+            height: 50vh;
+            /* ✅ تم استرجاع الصورة هنا */
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('img/slider-3.webp');
+            background-size: cover; background-position: center;
+            display: flex; align-items: center; justify-content: center; color: white; text-align: center;
+        }
+        /* تصميم خاص لبطاقات الأنشطة */
+        .activity-card {
+            background: white; border-radius: 15px; overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05); transition: 0.3s;
+            position: relative;
+        }
+        .activity-card:hover { transform: translateY(-5px); box-shadow: 0 15px 35px rgba(0,0,0,0.1); }
+        .activity-card img { width: 100%; height: 200px; object-fit: cover; display: block; }
+        .activity-body { padding: 20px; }
+        .activity-title { font-size: 1.2rem; margin-bottom: 10px; color: var(--dark); font-family: var(--font-head); font-weight: 700; }
+        .activity-meta { display: flex; justify-content: space-between; color: #666; font-size: 0.9rem; margin-bottom: 15px; }
+        .activity-price { color: var(--primary); font-weight: bold; font-size: 1.1rem; }
+    </style>
+</head>
+<body>
+
+    <a href="https://wa.me/905550000000" class="whatsapp-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
+
+    <nav class="navbar" id="public-nav">
+        <div class="logo">
+            <i class="fa-solid fa-umbrella-beach" style="color: var(--secondary);"></i> Konyaaltitours
+        </div>
+        <div class="hamburger" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
+        <ul class="nav-links">
+            <li><a href="index.html" data-i18n="nav_home">Home</a></li>
+            
+            <li><a href="packages.html" data-i18n="nav_packages">Packages</a></li>
+            
+            <li><a href="activities.html" class="active" style="color:var(--secondary);" data-i18n="nav_activities">Activities</a></li>
+            
+            <li><a href="about.html" data-i18n="nav_about">About Us</a></li>
+            
+            <li><a href="faq.html" data-i18n="nav_faq">FAQ</a></li>
+            
+            <li><a href="contact.html" data-i18n="nav_contact">Contact</a></li>
+            
+            <li>
+                <div class="custom-select-wrapper">
+                    <select id="lang-select" onchange="changeLanguage(this.value)">
+                        <option value="en">🇺🇸 English</option>
+                        <option value="tr">🇹🇷 Türkçe</option>
+                        <option value="ru">🇷🇺 Русский</option>
+                        <option value="ar">🇸🇦 العربية</option>
+                    </select>
+                    <i class="fas fa-chevron-down select-arrow"></i>
+                </div>
+            </li>
+        </ul>
+    </nav>
+
+    <header class="page-header">
+        <div data-aos="fade-up">
+            <h1 data-i18n="act_header_title">Daily Activities</h1>
+            <p data-i18n="act_header_sub">Adrenaline, Fun, and Adventure.</p>
+        </div>
+    </header>
+
+    <section class="packages-section" style="padding-top: 80px;">
+        <div class="packages-grid">
+            
+            <div class="activity-card" data-aos="fade-up">
+                <div class="activity-body">
+                    <div class="activity-title" data-i18n="act_rafting_title">White Water Rafting</div>
+                    <div class="activity-meta"><span><i class="far fa-clock"></i> 6 Hours</span> <span class="activity-price">$35</span></div>
+                    <p style="font-size: 0.9rem; color:#666; margin-bottom:15px;" data-i18n="act_rafting_desc">Experience the thrill of Köprülü Canyon waters.</p>
+                    <a href="contact.html" class="details-btn" style="display:block; text-align:center; text-decoration:none;" data-i18n="btn_book_now">Book Now</a>
+                </div>
+            </div>
+
+            <div class="activity-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="activity-body">
+                    <div class="activity-title" data-i18n="act_boat_title">Mega Star Boat Trip</div>
+                    <div class="activity-meta"><span><i class="far fa-clock"></i> 7 Hours</span> <span class="activity-price">$45</span></div>
+                    <p style="font-size: 0.9rem; color:#666; margin-bottom:15px;" data-i18n="act_boat_desc">Swim in turquoise bays with music and lunch.</p>
+                    <a href="contact.html" class="details-btn" style="display:block; text-align:center; text-decoration:none;" data-i18n="btn_book_now">Book Now</a>
+                </div>
+            </div>
+
+            <div class="activity-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="activity-body">
+                    <div class="activity-title" data-i18n="act_safari_title">Jeep Safari Adventure</div>
+                    <div class="activity-meta"><span><i class="far fa-clock"></i> 8 Hours</span> <span class="activity-price">$40</span></div>
+                    <p style="font-size: 0.9rem; color:#666; margin-bottom:15px;" data-i18n="act_safari_desc">Off-road fun through the Taurus Mountains.</p>
+                    <a href="contact.html" class="details-btn" style="display:block; text-align:center; text-decoration:none;" data-i18n="btn_book_now">Book Now</a>
+                </div>
+            </div>
+
+             <div class="activity-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="activity-body">
+                    <div class="activity-title" data-i18n="act_para_title">Paragliding</div>
+                    <div class="activity-meta"><span><i class="far fa-clock"></i> 2 Hours</span> <span class="activity-price">$90</span></div>
+                    <p style="font-size: 0.9rem; color:#666; margin-bottom:15px;" data-i18n="act_para_desc">Fly over Alanya or Kas with stunning views.</p>
+                    <a href="contact.html" class="details-btn" style="display:block; text-align:center; text-decoration:none;" data-i18n="btn_book_now">Book Now</a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-section">
+                <h3>Konyaaltitours</h3>
+                <p data-i18n="footer_about">Travel with confidence. Premium experiences tailored for you.</p>
+            </div>
+            <div class="footer-section">
+                <h3 data-i18n="footer_quick_links">Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html" data-i18n="nav_home">Home</a></li>
+                    <li><a href="packages.html" data-i18n="nav_packages">Packages</a></li>
+                    <li><a href="contact.html" data-i18n="nav_contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3 data-i18n="footer_contact">Contact</h3>
+                <p>info@konyaaltitours.com</p>
+                <div class="social-icons">
+                    <i class="fab fa-instagram"></i>
+                    <i class="fab fa-facebook"></i>
+                    <i class="fab fa-whatsapp"></i>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom"><p>© 2026 Konyaaltitours.</p></div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>AOS.init();</script>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Konyaaltitours | FAQ</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+      import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+      
+      const firebaseConfig = {
+        apiKey: "AIzaSyCVVMxamKD54P1tiUUHduqQPNVvaWM9kjM",
+        authDomain: "my-web-app-b0ef5.firebaseapp.com",
+        projectId: "my-web-app-b0ef5",
+        storageBucket: "my-web-app-b0ef5.firebasestorage.app",
+        messagingSenderId: "684795706290",
+        appId: "1:684795706290:web:871525961c084436adc2ab"
+      };
+      
+      const app = initializeApp(firebaseConfig);
+      window.auth = getAuth(app);
+      window.onAuthStateChanged = onAuthStateChanged;
+      window.signOut = signOut;
+    </script>
+
+    <style>
+        .page-header {
+            height: 40vh;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('img/slider-1.webp');
+            background-size: cover; background-position: center;
+            display: flex; align-items: center; justify-content: center; color: white; text-align: center;
+        }
+        .faq-container { max-width: 800px; margin: 80px auto; padding: 0 5%; }
+        
+        /* Accordion Style */
+        details {
+            background: #fff; margin-bottom: 20px; border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05); overflow: hidden;
+            border: 1px solid #eee; transition: 0.3s;
+        }
+        details:hover { box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        
+        summary {
+            padding: 20px; cursor: pointer; font-weight: 600; color: var(--dark);
+            list-style: none; display: flex; justify-content: space-between; align-items: center;
+            font-size: 1.1rem;
+        }
+        summary::-webkit-details-marker { display: none; }
+        
+        summary::after {
+            content: '\f078'; font-family: "Font Awesome 6 Free"; font-weight: 900;
+            color: var(--primary); transition: transform 0.3s;
+        }
+        
+        details[open] summary::after { transform: rotate(180deg); }
+        details[open] summary { border-bottom: 1px solid #eee; color: var(--primary); }
+        
+        .faq-content { padding: 20px; color: #555; line-height: 1.6; font-size: 0.95rem; background: #fafafa; }
+    </style>
+</head>
+<body>
+
+    <a href="https://wa.me/905550000000" class="whatsapp-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
+
+    <nav class="navbar" id="public-nav">
+        <div class="logo">
+            <i class="fa-solid fa-umbrella-beach" style="color: var(--secondary);"></i> Konyaaltitours
+        </div>
+        <div class="hamburger" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
+        <ul class="nav-links">
+            <li><a href="index.html" data-i18n="nav_home">Home</a></li>
+            
+            <li><a href="packages.html" data-i18n="nav_packages">Packages</a></li>
+            
+            <li><a href="activities.html" data-i18n="nav_activities">Activities</a></li>
+            
+            <li><a href="about.html" data-i18n="nav_about">About Us</a></li>
+            
+            <li><a href="faq.html" class="active" style="color:var(--secondary);" data-i18n="nav_faq">FAQ</a></li>
+            
+            <li><a href="contact.html" data-i18n="nav_contact">Contact</a></li>
+            
+            <li>
+                <div class="custom-select-wrapper">
+                    <select id="lang-select" onchange="changeLanguage(this.value)">
+                        <option value="en">🇺🇸 English</option>
+                        <option value="tr">🇹🇷 Türkçe</option>
+                        <option value="ru">🇷🇺 Русский</option>
+                        <option value="ar">🇸🇦 العربية</option>
+                    </select>
+                    <i class="fas fa-chevron-down select-arrow"></i>
+                </div>
+            </li>
+        </ul>
+    </nav>
+
+    <header class="page-header">
+        <div data-aos="fade-up">
+            <h1 data-i18n="faq_header_title">Frequently Asked Questions</h1>
+            <p data-i18n="faq_header_sub">Find answers to common questions.</p>
+        </div>
+    </header>
+
+    <div class="faq-container">
+        
+        <details open>
+            <summary data-i18n="faq_q1">How can I book a tour?</summary>
+            <div class="faq-content" data-i18n="faq_a1">
+                You can book directly through our website by selecting a package and clicking "View Details", then filling out the booking form. Alternatively, you can contact us via WhatsApp for instant booking.
+            </div>
+        </details>
+
+        <details>
+            <summary data-i18n="faq_q2">Do you offer airport transfers?</summary>
+            <div class="faq-content" data-i18n="faq_a2">
+                Yes, most of our multi-day packages include VIP airport transfers. For daily tours, we usually provide pick-up from your hotel.
+            </div>
+        </details>
+
+        <details>
+            <summary data-i18n="faq_q3">Is lunch included in the daily tours?</summary>
+            <div class="faq-content" data-i18n="faq_a3">
+                Yes, almost all our full-day tours (like Boat Trips, Jeep Safari, Rafting) include a delicious lunch. Drinks are usually extra unless specified.
+            </div>
+        </details>
+
+        <details>
+            <summary data-i18n="faq_q4">What is the cancellation policy?</summary>
+            <div class="faq-content" data-i18n="faq_a4">
+                You can cancel up to 24 hours before the tour starts for a full refund. Cancellations made within 24 hours may be subject to a fee.
+            </div>
+        </details>
+        
+        <details>
+            <summary data-i18n="faq_q5">Can I customize my package?</summary>
+            <div class="faq-content" data-i18n="faq_a5">
+                Absolutely! We specialize in tailor-made tours. Contact us with your preferences, and we will create a custom itinerary just for you.
+            </div>
+        </details>
+
+    </div>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-section">
+                <h3>Konyaaltitours</h3>
+                <p data-i18n="footer_about">Travel with confidence. Premium experiences tailored for you.</p>
+            </div>
+            <div class="footer-section">
+                <h3 data-i18n="footer_quick_links">Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html" data-i18n="nav_home">Home</a></li>
+                    <li><a href="packages.html" data-i18n="nav_packages">Packages</a></li>
+                    <li><a href="contact.html" data-i18n="nav_contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3 data-i18n="footer_contact">Contact</h3>
+                <p>info@konyaaltitours.com</p>
+                <div class="social-icons">
+                    <i class="fab fa-instagram"></i>
+                    <i class="fab fa-facebook"></i>
+                    <i class="fab fa-whatsapp"></i>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom"><p>© 2026 Konyaaltitours.</p></div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>AOS.init();</script>
+    <script src="script.js"></script>
+</body>
+</html>
